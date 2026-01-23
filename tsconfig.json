@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "MongoDB/models/test.model.js", "MongoDB/models/user.model.js", "scripts/seed.js", "MongoDB/db.js"  ],
   "exclude": ["node_modules"]
 }

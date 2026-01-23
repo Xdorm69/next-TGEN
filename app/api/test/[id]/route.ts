@@ -1,0 +1,43 @@
+import { connectDB } from "@/MongoDB/db";
+import { Test } from "@/MongoDB/models/test.model";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  await connectDB();
+  const p = await params;
+  const id = p.id;
+  const test = await Test.findById(id, {
+    name: 1,
+    subject: 1,
+    description: 1,
+    "questions.difficulty": 1,
+  }).lean();
+
+  if (!test) {
+    return NextResponse.json({ message: "Test not found" }, { status: 404 });
+  }
+
+  const difficultyCount = {
+    easy: 0,
+    medium: 0,
+    hard: 0,
+  };
+
+  for (const q of test.questions) {
+    if (q.difficulty in difficultyCount) {
+      difficultyCount[q.difficulty as keyof typeof difficultyCount]++;
+    }
+  }
+
+  return NextResponse.json({
+    _id: test._id,
+    name: test.name,
+    subject: test.subject,
+    description: test.description,
+    totalQuestions: test.questions.length,
+    difficulty: difficultyCount,
+  });
+}

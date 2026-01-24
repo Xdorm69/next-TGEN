@@ -42,9 +42,15 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 Total Questions: {totalQuestions}
               </Badge>
 
-              <Badge variant="outline">Easy: {difficulty.easy}</Badge>
-              <Badge variant="outline">Medium: {difficulty.medium}</Badge>
-              <Badge variant="outline">Hard: {difficulty.hard}</Badge>
+              <Badge variant="outline" className="bg-green-500/20 border-green-500">
+                Easy: {difficulty.easy}
+              </Badge>
+              <Badge variant="outline" className="bg-yellow-500/20 border-yellow-500">
+                Medium: {difficulty.medium}
+              </Badge>
+              <Badge variant="outline" className="bg-red-500/20 border-red-500">
+                Hard: {difficulty.hard}
+              </Badge>
             </div>
 
             {/* Actions */}

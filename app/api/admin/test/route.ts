@@ -1,10 +1,12 @@
 import { testSchema } from "@/lib/validator/testJson";
+import { connectDB } from "@/MongoDB/db";
 import { Test } from "@/MongoDB/models/test.model";
 import { getAuthUser } from "@/utils/authUtil";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
+    await connectDB();
     const user = await getAuthUser();
     if (!user || user.role !== "admin") {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -15,7 +17,7 @@ export async function POST(req: Request) {
     if (!test.success) {
       return NextResponse.json({ message: "Invalid JSON" }, { status: 400 });
     }
-    await Test.create(test.data);
+    await Test.create({ ...test.data, author: user.id });
 
     return NextResponse.json({ message: "Test created" }, { status: 201 });
   } catch (error) {

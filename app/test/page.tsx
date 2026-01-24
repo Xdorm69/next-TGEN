@@ -22,6 +22,8 @@ const page = async () => {
               key={test._id}
               {...test}
               questionsCount={test.questions.length}
+              dateCreated={new Date(test.createdAt).toLocaleDateString()}
+              author={test.author.name as string}
             />
           ))
         ) : (

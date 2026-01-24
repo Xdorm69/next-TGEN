@@ -72,6 +72,11 @@ const testSchema = new Schema(
       type: [questionSchema],
       required: true,
     },
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true },
 );

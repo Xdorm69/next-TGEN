@@ -1,5 +1,5 @@
 import MaxWidthWrapper from "@/components/Wrappers/MaxWidthWrapper";
-import AdminTestEditor from "../_components/AdminTestEditor";
+import AdminTestEditor from "../../_components/AdminTestEditor";
 import { demoJSON } from "@/constants/demoTestJson";
 
 const page = () => {

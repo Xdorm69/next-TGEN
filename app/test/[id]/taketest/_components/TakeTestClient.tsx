@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { TestStatsPage } from "./TestStats";
 import { API_URL } from "@/utils/urlUtils";
 import axios from "axios";
+import { WrongAnswer } from "@/app/api/test/[id]/submit/route";
 
 type Option = {
   _id: string;
@@ -21,7 +22,7 @@ type Props = {
   test: {
     _id: string;
     name: string;
-    subject: string;
+    subject: {name: string, color: string};
     description: string;
     questions: Question[];
   };
@@ -31,6 +32,7 @@ type Props = {
 type Result = {
   score: number;
   accuracy: number;
+  wrongAnswers: WrongAnswer[];
 };
 
 export default function TakeTestClient({ test, startTime }: Props) {
@@ -95,6 +97,7 @@ export default function TakeTestClient({ test, startTime }: Props) {
       setResult({
         score: data.score,
         accuracy: data.accuracy,
+        wrongAnswers: data.wrongAnswers,
       });
     } catch (err) {
       console.error(err);
@@ -120,6 +123,7 @@ export default function TakeTestClient({ test, startTime }: Props) {
         score={result.score}
         accuracy={result.accuracy}
         timeTaken={(Date.now() - startTime.getTime()) / 1000}
+        wrongAnswers={result.wrongAnswers}
       />
     );
   }
@@ -131,11 +135,24 @@ export default function TakeTestClient({ test, startTime }: Props) {
         style={{
           width: (currentIndex / test.questions.length) * 100 + "%",
           height: "2px",
-          backgroundColor: "#008000",
+          backgroundColor: test.subject.color || "#008000",
           display: "block",
           position: "absolute",
           top: -20,
           left: 0,
+        }}
+      />
+      {/* MUTED LINE  */}
+      <div
+        style={{
+          width: "100%",
+          height: "2px",
+          backgroundColor: "#ccc",
+          display: "block",
+          position: "absolute",
+          top: -20,
+          left: 0,
+          zIndex: -1,
         }}
       />
       <h1 className="heading">{test.name}</h1>

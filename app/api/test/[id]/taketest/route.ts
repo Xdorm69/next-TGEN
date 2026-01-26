@@ -9,10 +9,14 @@ export async function GET(
   await connectDB();
   const p = await params;
   const id = p.id;
-  const test = await Test.findById(id).lean();
+  const test = await Test.findById(id).populate("subject", "name color").lean();
 
   if (!test) {
     return NextResponse.json({ message: "Test not found" }, { status: 404 });
+  }
+
+  function randomizeQuestions(questions: any[]) {
+    return questions.sort(() => Math.random() - 0.5);
   }
 
   return NextResponse.json({
@@ -20,6 +24,6 @@ export async function GET(
     name: test.name,
     subject: test.subject,
     description: test.description,
-    questions: test.questions,
+    questions: randomizeQuestions(test.questions),
   });
 }

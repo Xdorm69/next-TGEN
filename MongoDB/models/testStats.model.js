@@ -7,6 +7,7 @@ const TestStatsSchema = new Schema({
   score: { type: Number, required: true },
   accuracy: { type: Number, required: true },
   timeTaken: { type: Number, required: true },
+  wrongAttempts: { type: [Schema.Types.ObjectId], ref: "Question", required: true },
 });
 
 export const TestStats =

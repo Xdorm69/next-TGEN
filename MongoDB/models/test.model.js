@@ -46,6 +46,10 @@ const questionSchema = new Schema(
       required: true,
       index: true,
     },
+    tags: {
+      type: [String],
+      default: [],
+    },
   },
   { timestamps: true },
 );
@@ -65,9 +69,9 @@ const testSchema = new Schema(
       trim: true,
     },
     subject: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Subject",
       required: true,
-      index: true,
     },
     questions: {
       type: [questionSchema],
@@ -77,6 +81,25 @@ const testSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    permissions: {
+      plan: {
+        type: String,
+        enum: ["free", "premium", "freemium"],
+        default: "free",
+      },
+      users: {
+        type: [Schema.Types.ObjectId],
+        ref: "User",
+      },
+      price: {
+        type: Number,
+        default: 0,
+      },
+      accessCount: {
+        type: String,
+        default: "unlimited",
+      },
     },
   },
   { timestamps: true },

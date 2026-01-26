@@ -1,16 +1,37 @@
-import "dotenv/config"; 
+import "dotenv/config";
 import { connectDB } from "../MongoDB/db.js";
 import { Test } from "../MongoDB/models/test.model.js";
+import { Subject } from "../MongoDB/models/subject.model.js";
 
 async function seed() {
+  const subjectId = () => {
+    if (!process.env.SEED_SUBJECT_ID) {
+      throw new Error("SEED_SUBJECT_ID is not defined");
+    }
+    return process.env.SEED_SUBJECT_ID;
+  };
+  const authorId = () => {
+    if (!process.env.SEED_USER_ID) {
+      throw new Error("SEED_USER_ID is not defined");
+    }
+    return process.env.SEED_USER_ID;
+  };
+
   await connectDB();
 
-  await Test.deleteMany({ subject: "Java" });
+  await Test.deleteMany({ subject: subjectId() });
 
-  await Test.create({
+  const seedTest = await Test.create({
     name: "Java Fundamentals Test",
     description: "MCQs covering core Java concepts",
-    subject: "Java",
+    subject: subjectId(),
+    permissions: {
+      plan: "free",
+      users: [],
+      price: 0,
+      accessCount: "unlimited",
+    },
+    author: authorId(),
     questions: [
       {
         title: "What does JVM stand for?",
@@ -21,6 +42,7 @@ async function seed() {
           { title: "Java Variable Manager", isCorrect: false },
           { title: "Java Vendor Machine", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "Which keyword is used to inherit a class in Java?",
@@ -31,6 +53,7 @@ async function seed() {
           { title: "inherits", isCorrect: false },
           { title: "super", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "Which of these is not a Java primitive type?",
@@ -41,6 +64,7 @@ async function seed() {
           { title: "String", isCorrect: true },
           { title: "double", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "What is method overloading?",
@@ -57,6 +81,7 @@ async function seed() {
           },
           { title: "Overriding parent class method", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "Which collection does not allow duplicate elements?",
@@ -67,6 +92,7 @@ async function seed() {
           { title: "Set", isCorrect: true },
           { title: "Map", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "What is the default value of an int variable?",
@@ -77,6 +103,7 @@ async function seed() {
           { title: "undefined", isCorrect: false },
           { title: "1", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "Which exception is unchecked?",
@@ -87,6 +114,7 @@ async function seed() {
           { title: "NullPointerException", isCorrect: true },
           { title: "FileNotFoundException", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "What does the final keyword mean for a variable?",
@@ -97,6 +125,7 @@ async function seed() {
           { title: "Variable is private", isCorrect: false },
           { title: "Variable is static", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "Which interface provides dynamic array behavior?",
@@ -107,6 +136,7 @@ async function seed() {
           { title: "Queue", isCorrect: false },
           { title: "Map", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
       {
         title: "Which keyword is used to create an object in Java?",
@@ -117,9 +147,15 @@ async function seed() {
           { title: "this", isCorrect: false },
           { title: "object", isCorrect: false },
         ],
+        tags: ["java", "fundamentals"],
       },
     ],
   });
+
+  await Subject.findByIdAndUpdate(subjectId(), {
+    $addToSet: { tests: seedTest._id },
+  });
+
 
   console.log("✅ Java test seeded successfully");
   process.exit(0);

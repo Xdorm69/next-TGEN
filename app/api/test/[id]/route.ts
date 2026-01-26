@@ -13,8 +13,11 @@ export async function GET(
     name: 1,
     subject: 1,
     description: 1,
+    tags: 1,
     "questions.difficulty": 1,
-  }).lean();
+  })
+    .populate("subject", "name color")
+    .lean();
 
   if (!test) {
     return NextResponse.json({ message: "Test not found" }, { status: 404 });
@@ -32,10 +35,12 @@ export async function GET(
     }
   }
 
+
   return NextResponse.json({
     _id: test._id,
     name: test.name,
-    subject: test.subject,
+    subject: test.subject.name,
+    subjectColor: test.subject.color,
     description: test.description,
     totalQuestions: test.questions.length,
     difficulty: difficultyCount,

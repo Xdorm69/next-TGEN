@@ -1,4 +1,5 @@
 import { connectDB } from "@/MongoDB/db";
+import { Subject } from "@/MongoDB/models/subject.model";
 import { Test } from "@/MongoDB/models/test.model";
 import { NextRequest, NextResponse } from "next/server";
 

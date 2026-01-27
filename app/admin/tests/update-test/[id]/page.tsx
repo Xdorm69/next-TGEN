@@ -1,9 +1,8 @@
 import { connectDB } from "@/MongoDB/db";
 import { Test } from "@/MongoDB/models/test.model";
 import { notFound } from "next/navigation";
-import React from "react";
-import AdminTestEditor from "../../_components/AdminTestEditor";
 import MaxWidthWrapper from "@/components/Wrappers/MaxWidthWrapper";
+import AdminTestEditor from "@/app/admin/_components/AdminTestEditor";
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const p = await params;

@@ -34,11 +34,6 @@ const SubjectSchema = new Schema(
   },
 );
 
-SubjectSchema.pre("save", function () {
-  if (this.isModified("name")) {
-    this.name = this.name.toLowerCase();
-  }
-});
 
 
 export const Subject =

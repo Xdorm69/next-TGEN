@@ -40,13 +40,15 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginSchema) => {
     try {
       setLoading(true);
-      await axios.post(`${API_URL}/auth/login`, data, {withCredentials: true});
+      await axios.post(`${API_URL}/auth/login`, data, {
+        withCredentials: true,
+      });
       toast.success("User logged in successfully");
       router.push("/test");
       router.refresh();
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Failed to login");
       console.log(error);
-      toast.error("Failed to login");
     } finally {
       setLoading(false);
     }

@@ -13,8 +13,5 @@ const UserSchema = new Schema(
   },
   { timestamps: true },
 );
-UserSchema.pre("save", function (next) {
-  this.name = this.name.toLowerCase();
-  next();
-});
+
 export const User = models.User || mongoose.model("User", UserSchema);

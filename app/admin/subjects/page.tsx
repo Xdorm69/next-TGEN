@@ -8,7 +8,6 @@ const page = async () => {
   try {
     await connectDB();
     const allSubjects = await Subject.find().lean();
-    console.log(allSubjects);
 
     return (
       <MaxWidthWrapper>

@@ -4,6 +4,7 @@ import { getAuthUser } from "@/utils/authUtil";
 import { TestStats } from "@/MongoDB/models/testStats.model";
 
 export type WrongAnswer = {
+  id: string;
   question: string;
   selectedOption: string;
   correctOption: string;
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
       correct++;
     } else {
       wrongAnswers.push({
+        id: q._id,
         question: q.title,
         selectedOption: q.options.find((o: any) => o._id === selectedOptionId)?.title || "",
         correctOption: correctOption.title,
@@ -48,7 +50,7 @@ export async function POST(req: Request) {
     score,
     accuracy,
     timeTaken,
-    //wrongattempts has to be implemented at api level;
+    wrongAttempts: wrongAnswers.map((wa) => wa.id)
   });
 
   return NextResponse.json({

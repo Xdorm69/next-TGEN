@@ -4,6 +4,7 @@ import Editor from "@monaco-editor/react";
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 
 export default function AdminTestEditor({
   defaultJSON,
@@ -16,9 +17,10 @@ export default function AdminTestEditor({
 
   const [value, setValue] = useState(() => {
     try {
-      return JSON.stringify(JSON.parse(defaultJSON), null, 2);
+      let demoJson = JSON.parse(defaultJSON);
+      return JSON.stringify(demoJson, null, 2);
     } catch {
-      return defaultJSON;   
+      return defaultJSON;
     }
   });
 
@@ -32,9 +34,10 @@ export default function AdminTestEditor({
       if (!testId) await axios.post("/api/admin/test", value);
       else await axios.put(`/api/admin/test/${testId}`, value);
 
-      alert("Test saved");
+      toast.success("Test saved");
     } catch {
       setError("Invalid JSON");
+      toast.error("Error saving test");
     }
   };
 

@@ -1,14 +1,13 @@
 import MaxWidthWrapper from "@/components/Wrappers/MaxWidthWrapper";
-import { TestType } from "@/types/TestType";
 import axios from "axios";
 import { API_URL } from "@/utils/urlUtils";
-import { DeleteTestCard } from "../../_components/DeleteTestCard";
+import { DeleteTestCard, TestSchema } from "../../_components/DeleteTestCard";
 
 const page = async () => {
   const { data } = await axios.get(API_URL + "/test", {
     withCredentials: true,
   });
-  const tests: TestType[] = data.allTests;
+  const tests: TestSchema[] = data.allTests;
 
   return (
     <MaxWidthWrapper>

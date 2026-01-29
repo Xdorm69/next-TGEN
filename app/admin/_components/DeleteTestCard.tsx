@@ -19,8 +19,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteTest } from "../_actions/deleteTest";
-import { TestType } from "@/types/TestType";
 import { useActionState } from "react";
+import { TestType } from "@/types/TestType";
 
 export const DeleteTestCard = ({ test }: { test: TestType }) => {
   const [_, action, loading] = useActionState(deleteTest, null);

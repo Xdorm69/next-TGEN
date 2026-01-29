@@ -33,7 +33,7 @@ const Navbar = async () => {
               </Badge>
             </Link>
           ) : (
-            <Link href="/profile">
+            <Link href="/login">
               <Button variant="secondary">Sign In</Button>
             </Link>
           )}

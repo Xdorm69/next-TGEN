@@ -21,6 +21,8 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { API_URL } from "@/utils/urlUtils";
+import axios from "axios";
 
 type LoginSchema = z.infer<typeof loginSchema>;
 
@@ -37,20 +39,17 @@ const LoginPage = () => {
   const router = useRouter();
 
   const onSubmit = async (data: LoginSchema) => {
-    const res = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    });
-
-    if (res?.error) {
-      toast.error(res.error);
-      return;
+    try {
+      await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        callbackUrl: "/test",
+      });
+      toast.success("User logged in successfully");
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.message || "Failed to login");
     }
-
-    toast.success("Logged in successfully");
-    router.push("/test");
-    router.refresh();
   };
 
   return (

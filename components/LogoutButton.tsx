@@ -1,19 +1,21 @@
 "use client";
-import { Button } from "./ui/button";
-import axios from "axios";
-import { API_URL } from "@/utils/urlUtils";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
-const LogoutButton = () => {
-  const router = useRouter();
-  const handleLogout = async () => {
-    await axios.post(API_URL + "/auth/logout");
-    router.push("/");
-    router.refresh();
-    toast.success("User Logged Out");
-  };
-  return <Button onClick={handleLogout}>Logout</Button>;
+import { useSession, signOut } from "next-auth/react";
+import { Button } from "./ui/button";
+
+const NavbarAuthButton = () => {
+  const { data: session, status } = useSession();
+
+  // optional: prevent flicker
+  if (status === "loading") return null;
+
+  if (!session) {
+    return null; // or Login button
+  }
+
+  return (
+    <Button onClick={() => signOut({ callbackUrl: "/login" })}>Logout</Button>
+  );
 };
 
-export default LogoutButton;
+export default NavbarAuthButton;

@@ -1,5 +1,5 @@
 import MaxWidthWrapper from "@/components/Wrappers/MaxWidthWrapper";
-import { TestType } from "@/Types/TestType";
+import { TestType } from "@/types/TestType";
 import axios from "axios";
 import { API_URL } from "@/utils/urlUtils";
 import TestCard from "@/app/test/_components/TestCard";

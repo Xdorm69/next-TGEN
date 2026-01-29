@@ -11,7 +11,7 @@ const AdminPage = async () => {
   }
   return (
     <MaxWidthWrapper>
-      <h1 className="heading">Welcome {user.email.split("@")[0]}</h1>
+      <h1 className="heading">Welcome {user.name ? user.name : "ADMIN"}</h1>
       <p className="description">
         You are logged in as an admin. You can manage tests and users.
       </p>

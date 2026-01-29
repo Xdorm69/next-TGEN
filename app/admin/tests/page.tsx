@@ -1,4 +1,3 @@
-import React from "react";
 import { getAuthUser } from "@/utils/authUtil";
 import MaxWidthWrapper from "@/components/Wrappers/MaxWidthWrapper";
 import DataCard from "@/components/DataCard";

@@ -40,6 +40,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data: LoginSchema) => {
     try {
+      setLoading(true);
       await signIn("credentials", {
         email: data.email,
         password: data.password,
@@ -49,6 +50,8 @@ const LoginPage = () => {
     } catch (error: any) {
       console.log(error);
       toast.error(error.message || "Failed to login");
+    } finally {
+      setLoading(false);
     }
   };
 

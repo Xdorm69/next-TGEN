@@ -165,7 +165,7 @@ export default function TakeTestClient({ test, startTime }: Props) {
       </div>
 
       {/* Options */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {currentQuestion.options.map((opt) => {
           const selected = answers[currentQuestion._id] === opt._id;
 
@@ -186,17 +186,22 @@ export default function TakeTestClient({ test, startTime }: Props) {
           );
         })}
       </div>
-
-      <Button
-        onClick={nextQuestion}
-        disabled={!answers[currentQuestion._id] || submitting}
-      >
-        {currentIndex === test.questions.length - 1
-          ? submitting
-            ? "Submitting..."
-            : "Finish Test"
-          : "Next Question"}
-      </Button>
+      <div className="">
+        <p className="hidden md:block font-mono text-muted-foreground text-xs">
+          Tip: On dekstop systems you can press enter to submit an option.
+        </p>
+        <Button
+          onClick={nextQuestion}
+          disabled={!answers[currentQuestion._id] || submitting}
+          className="md:w-fit w-full relative top-10 md:top-0 mt-0 md:mt-4"
+        >
+          {currentIndex === test.questions.length - 1
+            ? submitting
+              ? "Submitting..."
+              : "Finish Test"
+            : "Next Question"}
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,10 +1,10 @@
-
 import Link from "next/link";
 import { Button } from "./button";
 import { capText } from "@/utils/textUtils";
 import { getAuthUser } from "@/utils/authUtil";
-import LogoutButton from "../LogoutButton";
 import MobileNav from "./MobileNav";
+import { Badge } from "./badge";
+import { User } from "lucide-react";
 
 const Navbar = async () => {
   const navbarItems = ["test", "practice", "leaderboard"];
@@ -27,10 +27,14 @@ const Navbar = async () => {
           ))}
 
           {user ? (
-            <LogoutButton />
+            <Link href="/profile">
+              <Badge className="rounded-full size-8 bg-muted-foreground">
+                <User className="size-4" />
+              </Badge>
+            </Link>
           ) : (
-            <Link href="/login">
-              <Button variant="secondary">Login</Button>
+            <Link href="/profile">
+              <Button variant="secondary">Sign In</Button>
             </Link>
           )}
         </div>

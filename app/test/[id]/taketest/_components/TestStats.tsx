@@ -18,6 +18,7 @@ export function TestStatsPage({
   timeTaken,
   wrongAnswers,
 }: Props) {
+  const tt: string = timeTaken > 60 ? (timeTaken / 60).toFixed(2) + "min" : timeTaken.toFixed(2) + "sec";
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
       {/* Header */}
@@ -63,7 +64,7 @@ export function TestStatsPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">{timeTaken.toFixed(2)}s</p>
+            <p className="text-3xl font-bold">{tt}</p>
           </CardContent>
         </Card>
       </div>

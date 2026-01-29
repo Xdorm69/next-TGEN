@@ -1,4 +1,4 @@
-export type TestType = {
+export type TestSchema = {
     _id: string, 
     name: string,
     author: {_id: string, name: string}, 

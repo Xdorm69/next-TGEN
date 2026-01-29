@@ -20,9 +20,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { deleteTest } from "../_actions/deleteTest";
 import { useActionState } from "react";
-import { TestType } from "@/types/TestType";
+import { TestSchema } from "@/types/TestType";
 
-export const DeleteTestCard = ({ test }: { test: TestType }) => {
+export const DeleteTestCard = ({ test }: { test: TestSchema }) => {
   const [_, action, loading] = useActionState(deleteTest, null);
 
   return (

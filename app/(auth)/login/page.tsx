@@ -50,7 +50,6 @@ const LoginPage = () => {
 
     toast.success("Logged in successfully");
     router.push("/test");
-    router.refresh();
   };
 
   return (

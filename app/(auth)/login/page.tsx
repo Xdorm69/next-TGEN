@@ -39,21 +39,26 @@ const LoginPage = () => {
   const router = useRouter();
 
   const onSubmit = async (data: LoginSchema) => {
-    try {
-      setLoading(true);
-      await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        callbackUrl: "/test",
-      });
-      toast.success("User logged in successfully");
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error.message || "Failed to login");
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+
+  const res = await signIn("credentials", {
+    email: data.email,
+    password: data.password,
+    redirect: false, // 🔴 VERY IMPORTANT
+  });
+
+  setLoading(false);
+
+  if (res?.error) {
+    toast.error("Invalid email or password");
+    return;
+  }
+
+  toast.success("User logged in successfully");
+  router.push("/test");
+  router.refresh();
+};
+
 
   return (
     <MaxWidthWrapper>

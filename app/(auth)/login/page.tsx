@@ -41,12 +41,17 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginSchema) => {
     try {
       setLoading(true);
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: "/test",
+        redirect: false,
       });
+      if (!res?.ok) {
+        return toast.error("Failed to login");
+      }
       toast.success("User logged in successfully");
+      router.push("/test");
+      router.refresh();
     } catch (error: any) {
       console.log(error);
       toast.error(error.message || "Failed to login");

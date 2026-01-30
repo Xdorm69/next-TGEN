@@ -15,15 +15,20 @@ export async function GET(
     return NextResponse.json({ message: "Test not found" }, { status: 404 });
   }
 
-  function randomizeQuestions(questions: any[]) {
-    return questions.sort(() => Math.random() - 0.5);
-  }
+  const shuffle = <T>(array: T[]) => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
 
   return NextResponse.json({
     _id: test._id,
     name: test.name,
     subject: test.subject,
     description: test.description,
-    questions: randomizeQuestions(test.questions),
+    questions: shuffle(test.questions),
   });
 }

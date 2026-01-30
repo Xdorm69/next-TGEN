@@ -21,8 +21,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { API_URL } from "@/utils/urlUtils";
-import axios from "axios";
+
 
 type LoginSchema = z.infer<typeof loginSchema>;
 

@@ -47,6 +47,10 @@
 }
 
 :root {
+  
+  --tgen-primary: oklch(0.55 0.25 260);
+  --tgen-dark: oklch(0.15 0.01 260);
+  --tgen-card: oklch(0.2 0.01 260);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.147 0.004 49.25);
@@ -124,8 +128,38 @@
   }
 }
 
+
 @layer utilities {
-    .heading {
+  .glass {
+    background: oklch(1 0 0 / 3%);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(1 0 0 / 8%);
+  }
+
+  .hero-glow {
+    background: radial-gradient(
+      circle at center,
+      oklch(0.55 0.25 260 / 0.25) 0%,
+      transparent 70%
+    );
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      to right,
+      oklch(0.98 0.001 106),
+      oklch(0.7 0.02 260)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 20px oklch(0.55 0.25 260 / 0.5);
+  }
+
+  .heading {
         @apply text-2xl font-sans;
     }
 
@@ -133,3 +167,4 @@
       @apply font-mono text-sm font-light opacity-65
     }
 }
+

@@ -1,7 +1,7 @@
 import { connectDB } from "@/MongoDB/db";
 import { NextResponse } from "next/server";
 import { Test } from "@/MongoDB/models/test.model";
-import "@/MongoDB/models/user.model"; 
+import "@/MongoDB/models/user.model";
 
 export async function GET() {
   await connectDB();
@@ -20,6 +20,13 @@ export async function GET() {
     .populate("author", "name")
     .lean();
 
-
-  return NextResponse.json({ allTests }, { status: 200 });
+  return NextResponse.json(
+    {
+      allTests: allTests.map((test) => ({
+        ...test,
+        _id: test._id.toString(),
+      })),
+    },
+    { status: 200 },
+  );
 }

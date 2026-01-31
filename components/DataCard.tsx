@@ -23,9 +23,9 @@ const DataCard = ({
   footer?: React.ReactNode;
   href: string;
 }) => {
-    const router = useRouter();
+  const router = useRouter();
   return (
-    <Card onClick={() => router.push(href)}>
+    <Card onClick={() => (href !== "none" ? router.push(href) : null)}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

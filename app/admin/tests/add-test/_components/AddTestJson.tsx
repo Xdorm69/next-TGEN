@@ -1,12 +1,12 @@
 import MaxWidthWrapper from "@/components/Wrappers/MaxWidthWrapper";
-import AdminTestEditor from "../../_components/AdminTestEditor";
 import { demoJSON } from "@/constants/demoTestJson";
 import { getAuthUser } from "@/utils/authUtil";
 import { connectDB } from "@/MongoDB/db";
 import { Subject } from "@/MongoDB/models/subject.model";
-import SelectSubject from "./_components/SelectSubject";
+import SelectSubject from "./SelectSubject";
+import AdminTestEditor from "@/app/admin/_components/AdminTestEditor";
 
-const page = async () => {
+export const AddTestJson = async () => {
   const user = await getAuthUser();
   if (!user || user.role !== "admin") {
     return <div>Unauthorized</div>;
@@ -28,4 +28,3 @@ const page = async () => {
   );
 };
 
-export default page;

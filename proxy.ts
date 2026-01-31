@@ -1,20 +1,40 @@
 import { NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
-import type { NextRequest } from "next/server";
+import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 
-export async function proxy(req: NextRequest) {
-  const token = await getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+export default withAuth(
+  function middleware(req: NextRequestWithAuth) {
+    const token = req.nextauth.token;
+    const pathname = req.nextUrl.pathname;
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+    // 🔐 Admin-only
+    if (pathname.startsWith("/admin")) {
+      if (token?.role !== "admin") {
+        return NextResponse.redirect(new URL("/unauthorized", req.url));
+      }
+    }
 
-  return NextResponse.next();
-}
+    // 🔐 Logged-in users
+    const userProtectedRoutes = ["/test", "/dashboard", "/profile"];
+    if (userProtectedRoutes.some((route) => pathname.startsWith(route))) {
+      if (!token) {
+        return NextResponse.redirect(new URL("/login", req.url));
+      }
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: () => true, // 👈 CRITICAL FIX
+    },
+  },
+);
 
 export const config = {
-  matcher: ["/test/:path*", "/admin/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/test/:path*",
+    "/dashboard/:path*",
+    "/profile/:path*",
+  ],
 };

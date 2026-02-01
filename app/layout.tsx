@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/ui/Navbar";
 import { Toaster } from "sonner";
 import SessionWrapper from "@/components/Wrappers/SessionWrapper";
+import Footer from "@/components/ui/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,9 +39,10 @@ export default function RootLayout({
         <SessionWrapper>
           <Navbar />
           {/* FIXING SPACING CAUSED BY FIXED NAVBAR  */}
-          <div className="mt-16"/>
+          <div className="mt-16" />
           {children}
           <Toaster />
+          <Footer />
         </SessionWrapper>
       </body>
     </html>

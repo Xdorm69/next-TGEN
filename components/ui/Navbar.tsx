@@ -8,6 +8,16 @@ import { User } from "lucide-react";
 import MaxWidthWrapper from "../Wrappers/MaxWidthWrapper";
 import Image from "next/image";
 
+
+export const HeroLink = () => {
+  return (
+    <Link href="/" className="flex gap-1">
+      <Image src="/logo.png" alt="Logo" width={30} height={20} />
+      <h1 className="font-mono font-bold text-xl">TGEN</h1>
+    </Link>
+  );
+}
+
 const Navbar = async () => {
   const navbarItems = ["test", "practice", "leaderboard"];
   const user = await getAuthUser();
@@ -17,10 +27,7 @@ const Navbar = async () => {
       <MaxWidthWrapper className="py-3">
         <div className="flex items-center justify-between">
           {/* LEFT */}
-          <Link href="/" className="flex gap-1">
-            <Image src="/logo.png" alt="Logo" width={30} height={20} />
-            <h1 className="font-mono font-bold text-xl">TGEN</h1>
-          </Link>
+          <HeroLink />
 
           {/* DESKTOP NAV */}
           <div className="hidden md:flex gap-2 font-sans">

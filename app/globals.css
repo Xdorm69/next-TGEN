@@ -133,5 +133,9 @@
       @apply font-mono text-sm font-light opacity-65
     }
 
+    .hero-text {
+      @apply tracking-tighter font-sans text-8xl font-bold bg-clip-text text-transparent bg-linear-to-r from-white to-background/20
+    }
+
 
 }

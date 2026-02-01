@@ -12,25 +12,27 @@ const page = async () => {
 
   return (
     <MaxWidthWrapper>
-      <h2 className="heading">Available Tests</h2>
-      <p className="description max-w-2xl">
-        Below are some of the available tests
-      </p>
+      <div className="min-h-screen">
+        <h2 className="heading">Available Tests</h2>
+        <p className="description max-w-2xl">
+          Below are some of the available tests
+        </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-        {tests.length > 0 ? (
-          tests.map((test) => (
-            <TestCard
-              key={test._id}
-              {...test}
-              questionsCount={test.questions.length}
-              dateCreated={new Date(test.createdAt).toLocaleDateString()}
-              author={test.author.name as string}
-            />
-          ))
-        ) : (
-          <p className="description">No tests available</p>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          {tests.length > 0 ? (
+            tests.map((test) => (
+              <TestCard
+                key={test._id}
+                {...test}
+                questionsCount={test.questions.length}
+                dateCreated={new Date(test.createdAt).toLocaleDateString()}
+                author={test.author.name as string}
+              />
+            ))
+          ) : (
+            <p className="description">No tests available</p>
+          )}
+        </div>
       </div>
     </MaxWidthWrapper>
   );

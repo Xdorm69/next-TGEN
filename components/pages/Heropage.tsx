@@ -3,19 +3,23 @@ import MaxWidthWrapper from "../Wrappers/MaxWidthWrapper";
 import { Button } from "../ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Brain, LaptopIcon, ShieldCheck, Zap } from "lucide-react";
+import Footer from "../ui/Footer";
 
 export default function HeroPage() {
   return (
-    <MaxWidthWrapper>
-      <section className="relative py-16 h-150">
-        <HeroGlow />
-        <HeroContent />
-        <HeroOrb />
-      </section>
+    <>
+      <MaxWidthWrapper>
+        <section className="relative py-16 h-150">
+          <HeroGlow />
+          <HeroContent />
+          <HeroOrb />
+        </section>
 
-      <TrustedSection />
-      <FeatureSection />
-    </MaxWidthWrapper>
+        <TrustedSection />
+        <FeatureSection />
+      </MaxWidthWrapper>
+      <Footer />
+    </>
   );
 }
 

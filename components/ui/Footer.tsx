@@ -3,7 +3,7 @@ import { HeroLink } from "./Navbar";
 
 const Footer = () => {
   return (
-    <footer className="bg-background pt-20 pb-10 border-t border-white/5">
+    <footer className="bg-background pt-20 pb-10 border-t border-white/5 z-0">
       {/* Top section */}
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-20">
         {/* Brand */}

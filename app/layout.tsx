@@ -41,8 +41,8 @@ export default function RootLayout({
           {/* FIXING SPACING CAUSED BY FIXED NAVBAR  */}
           <div className="mt-16" />
           {children}
+          
           <Toaster />
-          <Footer />
         </SessionWrapper>
       </body>
     </html>

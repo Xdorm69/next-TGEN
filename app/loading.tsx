@@ -3,7 +3,7 @@ import React from "react";
 
 const loading = () => {
   return (
-    <div className="z-10 absolute top-0 left-0 w-full h-full flex items-center justify-center">
+    <div className="fixed inset-0 z-50 w-screen h-screen bg-background flex items-center justify-center">
       <SpinningLoader />
     </div>
   );

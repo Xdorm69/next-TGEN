@@ -19,7 +19,7 @@ export const HeroLink = () => {
 }
 
 const Navbar = async () => {
-  const navbarItems = ["test", "practice", "leaderboard"];
+  const navbarItems = ["test", "practice", "leaderboard", 'competitive'];
   const user = await getAuthUser();
 
   return (
